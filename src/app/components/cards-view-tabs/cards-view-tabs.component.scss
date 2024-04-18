@@ -1,0 +1,24 @@
+ion-icon::selection{
+    color: var(--primary-color-purple);
+}
+
+#toolbar-items{
+    display: flex;
+    flex-direction: row;
+
+    ion-button{
+        width: 40px;
+    }
+
+    ion-title{
+        font-size: 1.5rem;
+        color: black;
+        text-align: center;
+        margin-right: 40px;
+    }
+}
+
+ion-tabs{
+    margin-top: 60px;
+    height: auto;
+}

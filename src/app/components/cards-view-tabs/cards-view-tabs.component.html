@@ -1,0 +1,26 @@
+<ion-toolbar mode="md">
+  <div id="toolbar-items">
+    <ion-button (click)="backToSets()" size="small" fill="clear">  
+      <ion-icon src="/assets/icon/left-arrow.svg"></ion-icon>      
+    </ion-button>
+    <ion-title>{{getCurrentLearningSetName()}}</ion-title>
+  </div>
+</ion-toolbar>
+
+<ion-tabs>
+  <ion-tab-bar slot="bottom" mode="md">
+    <ion-tab-button tab="learn-box-selection">
+      <ion-icon name="school"  size="large" ></ion-icon>
+      Learn
+    </ion-tab-button>
+    <ion-tab-button tab="add-edit-card">
+      <ion-icon name="add-circle" size="large"></ion-icon>
+      Add
+    </ion-tab-button>
+    <ion-tab-button tab="card-list">
+      <ion-icon name="list" size="large"></ion-icon>
+      Cards
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
+

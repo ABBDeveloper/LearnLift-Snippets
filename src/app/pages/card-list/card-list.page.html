@@ -1,0 +1,21 @@
+<ion-content>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large"></ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-segment [(ngModel)]="selectedBoxCards" swipe-gesture="false" mode="md">
+    <ion-segment-button [ngClass]="{'selected-box': selectedBoxCards === 'box1'}" value="box1">
+      Box 1
+    </ion-segment-button>
+    <ion-segment-button [ngClass]="{'selected-box': selectedBoxCards === 'box2'}" value="box2">
+      Box 2
+    </ion-segment-button>
+    <ion-segment-button [ngClass]="{'selected-box': selectedBoxCards === 'box3'}" value="box3">
+      Box 3
+    </ion-segment-button>
+  </ion-segment>
+
+  // Privater Code
+</ion-content>

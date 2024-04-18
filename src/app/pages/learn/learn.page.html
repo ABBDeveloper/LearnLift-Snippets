@@ -1,0 +1,58 @@
+<ion-toolbar mode="md">
+  <div id="toolbar-items">
+    <ion-button (click)="backToCards()" size="small" fill="clear">  
+      <ion-icon src="/assets/icon/left-arrow.svg"></ion-icon>      
+    </ion-button>
+    <ion-title>Box {{selectedBoxNumber}}</ion-title>
+  </div>
+</ion-toolbar>
+
+<ion-content [fullscreen]="true">
+  <ng-template #boxEmptyMessage>
+      <ion-lebel id="box-empty-message">
+        <h2>The box is empty</h2>
+      </ion-lebel>
+  </ng-template>
+
+  <swiper-container  
+    *ngIf="cards.length > 0; else boxEmptyMessage"
+    #swiper 
+    slides-per-view="1" 
+    speed="100" 
+    loop="false" 
+    direction ="horizontal"
+    (afterinit)="swiperReady()"
+    (slidechange)="swiperSlideChanged($event)">
+    <swiper-slide *ngFor="let card of cards">
+      <div class="word-card-wrapper">
+        <div class="card"  (click)="toggleFlip(card.id)"
+             [ngClass]="{ 'flipped': flippedCards[card.id], 'compact': card.type === 'compactCard', 'qa': card.type === 'questionAnswerCard' }">
+            <div class="card-face front" [ngClass]="{'face-with-image': card.imageUrl  && card.type ==='compactCard'}">
+              <img *ngIf="card.type === 'compactCard' && card.imageUrl" [src]="card.imageUrl">
+              <p>{{ card.front }}</p>            
+            </div>
+            <div class="card-face back" [ngClass]="{'face-with-image': card.imageUrl && card.type ==='questionAnswerCard'}">
+              <img *ngIf="card.type === 'questionAnswerCard' && card.imageUrl" [src]="card.imageUrl">
+              <p>{{ card.back }}</p>
+            </div>
+        </div>
+      </div>
+      
+      <div class="card-learning-status">
+        <ion-button 
+          class="learning-status-button" 
+          id="card-not-larned"          
+          (click)="updateLearningStatus(card, 'notLearned')">
+          <ion-icon src="/assets/icon/close.svg"></ion-icon>
+        </ion-button>
+     
+        <ion-button 
+          class="learning-status-button" 
+          id="card-learned" 
+          (click)="updateLearningStatus(card, 'learned')" >
+          <ion-icon src="/assets/icon/check.svg"></ion-icon>
+        </ion-button>
+      </div>
+    </swiper-slide>
+  </swiper-container>
+</ion-content>

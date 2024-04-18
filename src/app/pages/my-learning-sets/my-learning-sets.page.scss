@@ -1,0 +1,311 @@
+ion-toolbar{
+  display: flex;
+
+  ion-title{
+    margin: 15px;
+    font-size: 1.4rem;
+    color: #000;
+    text-align: center;
+  }
+}
+  
+.sets-content{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: clip;
+  z-index: 0;
+  align-content: center;
+  justify-content: center;
+
+  #no-available-sets-message{
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    height: 100%;
+    h2{
+        color: var(--ion-color-medium-shade);
+    }
+  }
+
+  ion-fab-button {
+    width: 160px;
+    height: 50px;
+    bottom: 20px;
+    --background: white;
+    --border-radius: 50px;
+    --box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+    --color: black;
+  
+    ion-label{
+      font-size: large;
+    }
+  }
+}
+
+.general-title{
+  box-sizing: border-box;
+  text-rendering: optimizeLegibility;
+}
+
+.set-card-container{
+  margin-top: 10px;
+  justify-content: center;
+}
+  
+.set-item{
+  max-width: 500px;
+  --background:rgba(255, 255, 255, 0);
+}
+
+.set-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 65px;
+
+  .set-item,
+  .set-card {
+    width: 100%;
+  }
+  
+  .set-card {
+    height: 130px;
+    margin: 5px 0px;
+    display: grid;
+    grid-template-columns: auto 1fr 40px;
+    --background:rgb(240, 240, 240);
+    box-shadow: 0 0 0px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+  
+    .set-image-wrapper{
+      min-width: 110px;
+      margin: 10px;
+      img{
+        width: 110px;
+        height: 110px;
+        object-fit: cover;
+        border-radius: 12px;
+      }
+    }
+  
+    .set-info{
+      max-width: 40vw;
+      display: flex;
+      flex-direction: column;
+      padding: 10px 10px 10px 0px;
+    
+      .set-name{
+        margin: 0px;
+        margin-top: 2px;
+        text-align: start;
+    
+        h2{
+          color: #000;
+          margin: 0; 
+          font-size: 1.3rem;
+          max-width: 100%; 
+          max-width: 160px;
+          white-space: nowrap; 
+          overflow: hidden; 
+          text-overflow: ellipsis;
+        }
+      }
+    
+      .set-details {
+        display: flex;
+        flex-direction: column;
+        padding-top: 25px ;
+    
+        #cards-count{
+          margin-bottom:10px ;
+        }
+    
+        .set-progress{
+          ion-progress-bar{
+            --background: #dedede;
+            --progress-background: #c7c7f1;
+            height: 8px;
+            border-radius: 4px;
+          }
+
+          ion-label{
+            padding-top: 2px;
+          }
+        }
+      }
+    }
+    
+    .set-controls {
+      display: grid;
+      grid-template-rows: 40% auto;
+      width: 30px;
+      justify-content: center;
+      align-content: start;  
+      
+      .control-button {
+        margin-right: 0px;
+        width: 100%;
+      }
+    
+      #pin-button{
+        color: var(--primary-color-purple);
+      }
+      
+      #goToSet-button{
+        color: #757575;
+      }   
+    }
+  }
+
+  ion-item-options{
+    margin-right: 10px;
+  }
+
+  ion-icon{
+    font-size: 22px;
+    align-self: baseline;
+  }
+}
+  
+#add-set {
+  height: 50px;
+  width: 150px;
+  transition: all 0.3s ease;
+  --background: var(--ion-color-primary);
+  --color:white;
+
+  ion-icon{
+    margin-right: 10%;
+  }
+}
+
+.round-button{
+  border-radius: 50%;
+  height: 50px;
+}
+
+////// NEW SET MODAL  /////
+ion-modal{
+  --border-radius: 25px 25px 0px 0px;
+  --height: auto;
+
+  ion-header{
+    display: flex;
+    height: 50px;
+    text-align: center;
+    justify-content: center;
+  }
+
+  ion-content{
+    height: auto;
+  }
+
+  .modal-content{
+    height: auto;
+
+    display: flex;
+    flex-direction: column;
+
+    .set-name-input{
+      width:auto;
+      height: 50px;
+      margin:20px 10px 10px 10px;
+      --color: var(--ion-color-medium-shade);
+      --placeholder-color: #ddd;
+      --placeholder-opacity: 0.8;
+      --highlight-color: var(--primary-color-purple);
+      font-size: large;
+    }
+
+    .new-set-modal-item{
+      margin:20px 10px 0px 10px;
+
+      ion-label{
+        margin-left: 7px;
+      }
+    }
+
+    .learnig-set-categories{
+      margin-top: 7px;
+
+      .category{
+        --background: #ededed;
+      }
+      .selected-category {
+        --background: var(--primary-color-purple);
+        color: #ffffff;
+      }
+    }
+
+    .add-image-wrapper{
+      margin-top: 7px;
+      width: 100%;
+      .add-image-container{
+        margin: 0px 2px;
+      }
+    }
+  
+    .set-image{
+      width: 70px; 
+      height: 70px; 
+      border-radius: 12px;
+    }
+
+    .add-own-img{
+      width: 70px; 
+      height: 70px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 2px dashed var(--ion-color-light-shade);
+      border-radius: 12px;
+
+      ion-icon{
+        font-size: 40px;
+      }
+
+      img{
+        object-fit: cover;
+        max-width: initial;
+      }
+    }
+    
+    .selected-image{
+      border: 2px solid var(--primary-color-purple);
+    }
+  
+    .modal-buttons{
+      display: flex;
+      justify-content: center; 
+      align-items: center;
+      margin: 40px 20px;
+
+      .modal-control-button{
+        margin: 5px;
+        --border-radius: 50px;
+        height: 50px;
+        width: 45%;
+        gap: 10px;
+        --box-shadow: none;
+        text-transform: none;
+        font-size: 15px;
+      
+      }
+    
+      #cancel-btn{
+        --background: #ffffff;
+        --border-color: var(--primary-color-purple);
+        color: var(--primary-color-purple);
+        --border-style: solid;
+        --border-width: 1px;
+      }
+    
+      #save-btn{
+        --background:var(--primary-color-purple);
+        color: #ffffff;
+      }
+    }
+  } 
+}

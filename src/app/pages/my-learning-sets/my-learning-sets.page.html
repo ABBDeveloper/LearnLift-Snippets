@@ -1,0 +1,113 @@
+<ion-toolbar mode="md">
+  <ion-title>My Learning Sets</ion-title>
+</ion-toolbar>
+
+<ion-content [fullscreen]="true" class="sets-content">
+<ng-template #noExistingSets>
+  <ion-label id="no-available-sets-message">
+    <h2>No learning sets are available. Add a new one</h2>
+  </ion-label>
+</ng-template>
+<div *ngIf="isExistingSet; else noExistingSets" class="set-card-container">
+  <ion-item-sliding *ngFor="let set of (learningSets | async | sortLearningSets)" >
+    <ion-item lines="none" class="set-item" >
+      <ion-card  class="set-card">
+        <div class="set-image-wrapper">
+          <img src={{set.imageUrl}}>
+        </div>
+          <div class="set-info" (click)="openSet(set)">
+            <div class="set-name">
+              <h2>{{set.name}}</h2>
+            </div>
+            <div class="set-details">
+              <ion-label id="cards-count">
+                 {{getCardsCount(set)}} 
+              </ion-label>
+              <div class="set-progress">
+                <ion-progress-bar value={{getProgress(set)}}></ion-progress-bar>
+                <ion-label>{{getProgress(set)*100 | number:'1.0-0'}}% skill lifted</ion-label>
+              </div>
+            </div>
+          </div>
+          <div class="set-controls">
+            <ion-button (click)="togglePinned(set)" fill="clear" class="control-button" id="pin-button">
+              <ion-icon  src="assets/icon/unpinned.svg" *ngIf="!set.isPinned; else pinned"></ion-icon>
+              <ng-template #pinned>
+                <ion-icon  src="assets/icon/pinned.svg"></ion-icon>
+              </ng-template>
+            </ion-button>
+            <ion-button  fill="clear" class="control-button" id ="goToSet-button" (click)="openSet(set)">
+              <ion-icon name="chevron-forward-outline"></ion-icon>
+            </ion-button>
+          </div>          
+      </ion-card>
+    </ion-item>
+  
+    <ion-item-options side="end">
+      <ion-item-option color="white" (click)="deleteSet(set)">
+        <ion-icon src="assets/icon/trash.svg"></ion-icon>
+      </ion-item-option>
+      <ion-item-option color="white" (click)="editSet(set)">
+        <ion-icon  src="assets/icon/edit.svg"></ion-icon>
+      </ion-item-option>
+    </ion-item-options>
+  </ion-item-sliding>
+</div>
+<ion-fab slot="fixed" vertical="bottom" horizontal="center">
+  <ion-fab-button #btn id="add-set" expand="add-learning-set-wrapper">
+    <ion-icon name="add"></ion-icon>
+    <ion-label>Add set</ion-label>
+  </ion-fab-button>
+</ion-fab>
+</ion-content>
+
+
+<!-- ///////// NEW SET MODAL ////////// -->
+<ion-modal #modal trigger="add-set"  [initialBreakpoint]="1" [breakpoints]="[0, 1]" mode="md">
+  <ng-template>
+    <ion-header>
+      <ion-title size="large">{{modalTitle}}</ion-title>
+    </ion-header>
+
+      <div class="modal-content">
+        <ion-input class="set-name-input" autofocus="true" label="Name" labelPlacement="floating" size="medium" fill="outline" shape="round" placeholder="Capital cities" [(ngModel)]="currentLearningSet.name"></ion-input>
+        <div class="new-set-modal-item">
+          <ion-label class="">Category: </ion-label>
+          <div class="learnig-set-categories">
+            <ion-chip class="category" *ngFor="let cat of categories" (click)="setCategoryOfLearnigSet(cat)" [ngClass]="{'selected-category': cat === currentLearningSet.category}">{{cat}}</ion-chip>
+          </div>
+        </div>
+        <div class="new-set-modal-item">
+          <ion-label>Image: </ion-label>
+          <swiper-container  
+            class="add-image-wrapper"
+            #swiper 
+            slides-per-view="5" 
+            speed="300" 
+            free-mode="true"
+            loop="true"
+            direction ="horizontal">
+            <swiper-slide class="add-image-container" (click)="setOwnImageOfLearnigSet()">
+              <div *ngIf="!currentLearningSet.isCustomImage; else costumImage" class="add-own-img">
+                <ion-icon src="assets/icon/add-set-photo.svg" ></ion-icon>
+              </div>
+              <ng-template #costumImage>
+                <div class="add-own-img">
+                  <img class="set-image"  src={{currentLearningSet.imageUrl}}>
+                </div>
+              </ng-template>
+            </swiper-slide>
+
+            <swiper-slide  class="add-image-container" *ngFor="let imgUrl of imagesOfLearnigSetCategories">
+              <img class="set-image"  src={{imgUrl}} (click)="setImageOfLearnigSet(imgUrl)" [ngClass]="{'selected-image': imgUrl === currentLearningSet.imageUrl}">
+            </swiper-slide>
+          </swiper-container> 
+        </div>
+        
+        <div class="modal-buttons">
+          <ion-button id="cancel-btn" class="modal-control-button" (click)="cancel()" >Cancel</ion-button>
+          <ion-button id="save-btn" class="modal-control-button" (click)="save()">Save</ion-button>
+        </div>
+      </div>   
+  </ng-template>
+</ion-modal>
